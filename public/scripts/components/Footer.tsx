@@ -1,7 +1,7 @@
 import * as  React from 'react'
 import { VisibilityFilters } from '../actions/TodoActions'
 
-interface FooterProps {
+export interface FooterProps {
 	onFilterChange: { (filter: VisibilityFilters): void },
 	filter: VisibilityFilters
 }

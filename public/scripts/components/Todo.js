@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -6,11 +6,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = require('react');
+var _react = require("react");
 
 var React = _interopRequireWildcard(_react);
-
-var _TodoActions = require('../actions/TodoActions');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -20,36 +18,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Footer = (function (_React$Component) {
-    _inherits(Footer, _React$Component);
+var Todo = (function (_React$Component) {
+    _inherits(Todo, _React$Component);
 
-    function Footer() {
-        _classCallCheck(this, Footer);
+    function Todo() {
+        _classCallCheck(this, Todo);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Footer).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Todo).apply(this, arguments));
     }
 
-    _createClass(Footer, [{
-        key: 'renderFilter',
-        value: function renderFilter(filter, name) {
-            var _this2 = this;
-
-            if (filter === this.props.filter) {
-                return name;
-            }
-            return React.createElement("a", { "href": '#', "onClick": function onClick(e) {
-                    e.preventDefault();
-                    _this2.props.onFilterChange(filter);
-                } }, name);
-        }
-    }, {
-        key: 'render',
+    _createClass(Todo, [{
+        key: "render",
         value: function render() {
-            return React.createElement("p", null, "Show:", ' ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_ALL, 'All'), ', ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_COMPLETED, 'Completed'), ', ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_ACTIVE, 'Active'), ".");
+            return React.createElement("li", { "onClick": this.props.onClick, "style": {
+                    textDecoration: this.props.completed ? 'line-through' : 'none',
+                    cursor: this.props.completed ? 'default' : 'pointer'
+                } }, this.props.text);
         }
     }]);
 
-    return Footer;
+    return Todo;
 })(React.Component);
 
-exports.default = Footer;
+exports.default = Todo;

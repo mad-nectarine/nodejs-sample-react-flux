@@ -1,51 +1,25 @@
 'use strict';
 
-var _express = require('express');
+var _todo = require('./routes/todo');
 
-var express = _interopRequireWildcard(_express);
+var _todo2 = _interopRequireDefault(_todo);
 
-var _path = require('path');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var path = _interopRequireWildcard(_path);
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var uuid = require('node-uuid');
 
-var _morgan = require('morgan');
-
-var logger = _interopRequireWildcard(_morgan);
-
-var _cookieParser = require('cookie-parser');
-
-var cookieParser = _interopRequireWildcard(_cookieParser);
-
-var _bodyParser = require('body-parser');
-
-var bodyParser = _interopRequireWildcard(_bodyParser);
-
-var _expressSession = require('express-session');
-
-var session = _interopRequireWildcard(_expressSession);
-
-var _nodeUuid = require('node-uuid');
-
-var uuid = _interopRequireWildcard(_nodeUuid);
-
-function _interopRequireWildcard(obj) {
-    if (obj && obj.__esModule) {
-        return obj;
-    } else {
-        var newObj = {};if (obj != null) {
-            for (var key in obj) {
-                if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-            }
-        }newObj.default = obj;return newObj;
-    }
-}
-
-//import routesConfig from './routes/routesConfig';
 var app = express();
 //===== view engine setup =====
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/views');
 //** tsc compile *.tsx to *.jsx when jsx option is "preserve" in tsconfig.json.
 //app.set('view engine', 'jsx');
 //  app.engine('jsx', require('express-react-views').createEngine());
@@ -71,6 +45,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 //===== set routes
 //routesConfig(app);
+app.use("/todo", _todo2.default);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

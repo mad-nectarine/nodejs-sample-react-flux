@@ -48,9 +48,14 @@
     "./public/scripts/actions/TodoACtions.js",
     "./public/scripts/components/AddTodo.js",
     "./public/scripts/components/Footer.js",
-    "./public/scripts/components/TodoApp.js",
+    "./public/scripts/components/Todo.js",
     "./public/scripts/components/TodoList.js",
+    "./public/scripts/containers/TodoApp.js",
+    "./public/scripts/pages/TodoIndex.js",
     "./public/scripts/reducers/TodoApp.js",
-    "./public/scripts/stores/TodoStore.js"
+    "./public/scripts/stores/TodoStore.js",
+    "./routes/Todo.js",
+    "./views/error.js",
+    "./views/Todo.js"
   ]
 }

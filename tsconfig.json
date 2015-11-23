@@ -46,6 +46,7 @@
     "./public/scripts/actions/TodoACtions.ts",
     "./public/scripts/reducers/TodoApp.ts",
     "./public/scripts/stores/TodoStore.ts",
+    "./routes/Todo.ts",
     "./Scripts/typings/body-parser/body-parser.d.ts",
     "./Scripts/typings/compression/compression.d.ts",
     "./Scripts/typings/cookie-parser/cookie-parser.d.ts",
@@ -76,7 +77,10 @@
     "./public/scripts/components/AddTodo.tsx",
     "./public/scripts/components/Footer.tsx",
     "./public/scripts/components/Todo.tsx",
-    "./public/scripts/components/TodoApp.tsx",
-    "./public/scripts/components/TodoList.tsx"
+    "./public/scripts/components/TodoList.tsx",
+    "./public/scripts/containers/TodoApp.tsx",
+    "./public/scripts/pages/TodoIndex.tsx",
+    "./views/error.tsx",
+    "./views/Todo.tsx"
   ]
 }

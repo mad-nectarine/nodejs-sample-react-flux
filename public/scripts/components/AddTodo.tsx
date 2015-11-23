@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface AddTodoProps {
+export interface AddTodoProps {
 	 onAddClick: { (text: string): void }
 }
 

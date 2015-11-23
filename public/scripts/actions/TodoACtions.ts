@@ -22,15 +22,15 @@ export class TodoActionCreator
   /*
   * action creators
   */
-  addTodo(text) {
+  static addTodo(text) {
     return { type: TodoActionTypes.ADD, text }
   };
   
-  completeTodo(index) {
+  static completeTodo(index) {
     return { type: TodoActionTypes.COMPLETE, index }
   };
   
-  setVisibilityFilter(filter : VisibilityFilters) {
+  static setVisibilityFilter(filter : VisibilityFilters) {
     return { type: TodoActionTypes.SET_VISIBILITY_FILTER, filter }
   };  
 }  

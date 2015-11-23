@@ -1,20 +1,21 @@
-import * as express from 'express';
-import * as path from 'path';
-import * as favicon from 'serve-favicon';
-import * as logger from'morgan';
-import * as cookieParser from 'cookie-parser';
-import * as bodyParser from 'body-parser';
-import * as session from 'express-session';
-import * as uuid from 'node-uuid';
-import * as React from 'react';
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var uuid = require('node-uuid');
+//import * as React from 'react');
 //import routesConfig from './routes/routesConfig';
- 
-var app = express();
+import todo from './routes/todo';
+
+var app  = express();
 
 //===== view engine setup =====
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/views');
 //** tsc compile *.tsx to *.jsx when jsx option is "preserve" in tsconfig.json.
  //app.set('view engine', 'jsx');
 //  app.engine('jsx', require('express-react-views').createEngine());
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //===== set routes
 //routesConfig(app);
+app.use("/todo", todo);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -55,7 +57,7 @@ app.use((req, res, next) => {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use((err: any, req: express.Request, res: express.Response, next: Function): any => {
+    app.use((err: any, req, res, next: Function): any => {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -66,7 +68,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err: any, req: express.Request, res: express.Response, next: Function): any => {
+app.use((err: any, req, res, next: Function): any => {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
