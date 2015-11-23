@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "noLib": false,
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "jsx": "react"
+  },
+  "formatCodeOptions": {
+    "indentSize": 4,
+    "tabSize": 4,
+    "newLineCharacter": "\r\n",
+    "convertTabsToSpaces": true,
+    "insertSpaceAfterCommaDelimiter": true,
+    "insertSpaceAfterSemicolonInForStatements": true,
+    "insertSpaceBeforeAndAfterBinaryOperators": true,
+    "insertSpaceAfterKeywordsInControlFlowStatements": true,
+    "insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+    "placeOpenBraceOnNewLineForFunctions": true,
+    "placeOpenBraceOnNewLineForControlBlocks": true
+  },
+  "compileOnSave": true,
+  "filesGlob": [
+    "./**/*.js",
+    "./**/*.jsx",
+    "!./**/*.min.js",
+    "!./**/*.debug.js",
+    "!./gulpfile.js",
+    "!./babel/*.js",
+    "!./node_modules/**/*.js",
+    "!./bower_components/**/*.js",
+    "!./typings/**/*.js",
+    "!./node_modules/**/*.jsx",
+    "!./bower_components/**/*.jsx",
+    "!./typings/**/*.jsx"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  },
+  "files": [
+    "./app.js",
+    "./public/scripts/actions/TodoACtions.js",
+    "./public/scripts/components/AddTodo.js",
+    "./public/scripts/components/Footer.js",
+    "./public/scripts/components/TodoApp.js",
+    "./public/scripts/components/TodoList.js",
+    "./public/scripts/reducers/TodoApp.js",
+    "./public/scripts/stores/TodoStore.js"
+  ]
+}

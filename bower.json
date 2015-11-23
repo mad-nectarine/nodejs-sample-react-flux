@@ -1,0 +1,21 @@
+{
+  "name": "web.express.hello",
+  "description": "",
+  "main": "",
+  "authors": [
+    "madpink"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.14.2"
+  }
+}
