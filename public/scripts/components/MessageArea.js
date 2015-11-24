@@ -18,35 +18,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AddTodo = (function (_React$Component) {
-    _inherits(AddTodo, _React$Component);
+var MessageArea = (function (_React$Component) {
+    _inherits(MessageArea, _React$Component);
 
-    function AddTodo() {
-        _classCallCheck(this, AddTodo);
+    function MessageArea() {
+        _classCallCheck(this, MessageArea);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(AddTodo).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(MessageArea).apply(this, arguments));
     }
 
-    _createClass(AddTodo, [{
+    _createClass(MessageArea, [{
         key: "render",
         value: function render() {
-            var _this2 = this;
-
-            return React.createElement("section", null, React.createElement("div", { "className": "input-form" }, React.createElement("input", { "type": 'text', "ref": 'input' }), React.createElement("input", { "type": "button", "onClick": function onClick(e) {
-                    return _this2.handleClick(e);
-                }, "value": "Add" })));
-        }
-    }, {
-        key: "handleClick",
-        value: function handleClick(e) {
-            var node = this.refs.input;
-            var text = node.value; //.trim()
-            this.props.onAddClick(text);
-            node.value = "";
+            if (this.props.message) {
+                return React.createElement("div", { "className": "message " + this.props.message.type }, this.props.message.text);
+            }
+            return React.createElement("div", { "className": "message none" });
         }
     }]);
 
-    return AddTodo;
+    return MessageArea;
 })(React.Component);
 
-exports.default = AddTodo;
+exports.default = MessageArea;

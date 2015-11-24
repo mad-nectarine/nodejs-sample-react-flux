@@ -1,7 +1,10 @@
 import * as Redux from 'redux';
-import { TodoActionTypes, VisibilityFilters } from '../actions/TodoActions';
+import { TodoActionTypes } from '../actions/TodoActions';
+import { TodoItem, VisibilityFilters } from '../models/TodoModels';
+import * as uuid from 'node-uuid';
 
-export function visibilityFilter(state: VisibilityFilters = VisibilityFilters.SHOW_ALL, action) {
+//Reducer
+function visibilityFilter(state: VisibilityFilters = VisibilityFilters.SHOW_ALL, action) {
 	switch (action.type) {
 		case TodoActionTypes.SET_VISIBILITY_FILTER:
 			return action.filter
@@ -9,35 +12,64 @@ export function visibilityFilter(state: VisibilityFilters = VisibilityFilters.SH
 			return state
 	}
 }
-
-export function todos(state = [], action) {
+function todos(state = [], action) {
 	switch (action.type) {
 		case TodoActionTypes.ADD:
 			return [
 				...state,
 				//add todo item
 				{
-					text: action.text,
+					key: uuid.v4(),
+					text: action.inputText,
 					completed: false
 				}
 			];
 		case TodoActionTypes.COMPLETE:
+			let target = state.find(x => x.key == action.key);
+			let targetIndex = state.indexOf(target);
 			return [
 				//return pre complete items
-				...state.slice(0, action.index),
+				...state.slice(0, targetIndex),
 				//complete todo item and return it 
-				Object.assign({}, state[action.index], {
+				Object.assign({}, state[targetIndex], {
 					completed: true
 				}),
 				//return post complete items 
-				...state.slice(action.index + 1)
+				...state.slice(targetIndex + 1)
 			];
 		default:
 			return state;
 	}
 }
 
+function message(state: { text: string, type: string } = null, action) {
+	switch (action.type) {
+		case TodoActionTypes.SHOW_MESSAGE:
+			return action.message;
+		case TodoActionTypes.CLEAR_MESSAGE:
+			return null;
+		default:
+			return state;
+	}
+}
 
-//To Reducer and export as default
-const TodoApp = Redux.combineReducers({ visibilityFilter, todos });
-export default TodoApp;
+export const Reducer = Redux.combineReducers({ visibilityFilter, todos, message});
+export default Reducer;
+
+//create state
+export interface TodoAppState {
+	visibilityFilter?: VisibilityFilters,
+	todos?: Array<TodoItem>,
+	message?: { text: string, type: string }
+}
+export function CreateStateData(data: TodoAppState): TodoAppState {
+	var state = {
+		visibilityFilter: VisibilityFilters.SHOW_ALL,
+		todos: new Array<TodoItem>()
+	};
+	if (data != null) {
+		state = Object.assign(state, data);
+	}
+	return state;
+}
+

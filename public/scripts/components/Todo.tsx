@@ -1,15 +1,9 @@
 import * as React from 'react';
+import {TodoItem} from '../models/TodoModels';
 
 export interface TodoProps extends TodoItem {
   key: string,
   onClick: { (): void },
-}
-
-export interface TodoItem
-{
-  text: string,
-  completed: boolean
-  
 }
 
 export default class Todo extends React.Component<TodoProps, any> {

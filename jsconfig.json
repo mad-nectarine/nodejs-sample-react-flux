@@ -47,15 +47,18 @@
     "./app.js",
     "./public/scripts/actions/TodoACtions.js",
     "./public/scripts/components/AddTodo.js",
-    "./public/scripts/components/Footer.js",
+    "./public/scripts/components/MessageArea.js",
     "./public/scripts/components/Todo.js",
+    "./public/scripts/components/TodoFilter.js",
     "./public/scripts/components/TodoList.js",
     "./public/scripts/containers/TodoApp.js",
+    "./public/scripts/models/TodoModels.js",
     "./public/scripts/pages/TodoIndex.js",
     "./public/scripts/reducers/TodoApp.js",
-    "./public/scripts/stores/TodoStore.js",
+    "./public/scripts/util/ReactViewInitializer.js",
     "./routes/Todo.js",
     "./views/error.js",
+    "./views/layout/DefaultLayout.js",
     "./views/Todo.js"
   ]
 }

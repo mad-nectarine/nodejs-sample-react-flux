@@ -1,45 +1,56 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
-import { TodoActionCreator, VisibilityFilters } from '../actions/TodoActions';
+import * as Redux from 'redux';
+import {TodoItem, VisibilityFilters} from '../models/TodoModels';
+import * as TodoActionCreator from '../actions/TodoActions';
 import TodoApp from '../reducers/TodoApp'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
-import Footer from '../components/Footer'
-import { TodoItem } from '../components/Todo'
+import Filter from '../components/TodoFilter'
+import MessageArea from '../components/MessageArea'
+import { bindActionCreators } from 'redux'
 
 
-export interface TodoAppProps {
+export interface TodoAppProps extends TodoActionCreator.TodoActionApi {
   dispatch?
   visibleTodos?: Array<TodoItem>
   visibilityFilter?: VisibilityFilters
+  message?: { text: string, type: string }
 }
 
-class App extends React.Component<TodoAppProps,any> {
+class App extends React.Component<TodoAppProps, any> {
   render() {
     // Injected by connect() call:
-    const { dispatch, visibleTodos, visibilityFilter } = this.props
+    const { 
+      visibleTodos, 
+      visibilityFilter, 
+      message,
+      addTodoWithValidate,
+      clearMessage,
+      showMessage,
+      setVisibilityFilter,
+      completeTodo
+    } = this.props;
+    
     return (
       <div>
+        <MessageArea message={message}/>
         <AddTodo
-          onAddClick={text =>
-            dispatch(TodoActionCreator.addTodo(text))
-          } />
+          onAddClick={addTodoWithValidate} />
+        <section>
+        <Filter
+          filter={visibilityFilter}
+          onFilterChange={setVisibilityFilter}
+           />
         <TodoList
           todos={visibleTodos}
-          onTodoClick={index =>
-            dispatch(TodoActionCreator.completeTodo(index))
-          } />
-        <Footer
-          filter={visibilityFilter}
-          onFilterChange={nextFilter =>
-            dispatch(TodoActionCreator.setVisibilityFilter(nextFilter))
-          } />
-      </div>
+          onTodoClick={completeTodo}
+           />
+          </section>
+        </div>
     )
   }
 }
-
-
 
 function selectTodos(todos: Array<TodoItem>, filter: VisibilityFilters) {
   switch (filter) {
@@ -57,9 +68,14 @@ function selectTodos(todos: Array<TodoItem>, filter: VisibilityFilters) {
 function select(state) {
   return {
     visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter
+    visibilityFilter: state.visibilityFilter,
+    message: state.message
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return Redux.bindActionCreators(TodoActionCreator, dispatch)
+}
+
 // Wrap the component to inject dispatch and state into it
-export default ReactRedux.connect(select)(App)
+export default ReactRedux.connect(select,mapDispatchToProps)(App)

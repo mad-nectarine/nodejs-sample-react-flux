@@ -1,18 +1,18 @@
 import * as React from 'react'
 
 export interface AddTodoProps {
-	 onAddClick: { (text: string): void }
+	 onAddClick: { (inputText: string): void }
 }
 
 export default class AddTodo extends React.Component<AddTodoProps, {}> {
   render() {
     return (
-      <div>
+      <section>
+      <div className="input-form">
         <input type='text' ref='input' />
-        <button onClick={(e) => this.handleClick(e) }>
-          Add
-          </button>
+        <input type="button" onClick={(e) => this.handleClick(e) } value="Add" />
         </div>
+        </section>
     )
   }
 
@@ -23,4 +23,4 @@ export default class AddTodo extends React.Component<AddTodoProps, {}> {
     node.value = "";
   }
   refs: any
-} 
+}

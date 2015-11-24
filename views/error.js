@@ -30,7 +30,7 @@ var error = (function (_React$Component) {
     _createClass(error, [{
         key: "render",
         value: function render() {
-            return React.createElement("html", null, React.createElement("body", null, React.createElement("h1", null, this.props.message), React.createElement("h1", null, this.props.message), React.createElement("h2", null, this.props.error.status), React.createElement("pre", null, this.props.error.stack)));
+            return React.createElement("html", null, React.createElement("body", null, React.createElement("h1", null, this.props.message), React.createElement("h2", null, this.props.error.status), React.createElement("pre", null, this.props.error.stack)));
         }
     }]);
 

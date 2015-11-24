@@ -14,7 +14,15 @@ var _reactRedux = require('react-redux');
 
 var ReactRedux = _interopRequireWildcard(_reactRedux);
 
+var _redux = require('redux');
+
+var Redux = _interopRequireWildcard(_redux);
+
+var _TodoModels = require('../models/TodoModels');
+
 var _TodoActions = require('../actions/TodoActions');
+
+var TodoActionCreator = _interopRequireWildcard(_TodoActions);
 
 var _AddTodo = require('../components/AddTodo');
 
@@ -24,9 +32,13 @@ var _TodoList = require('../components/TodoList');
 
 var _TodoList2 = _interopRequireDefault(_TodoList);
 
-var _Footer = require('../components/Footer');
+var _TodoFilter = require('../components/TodoFilter');
 
-var _Footer2 = _interopRequireDefault(_Footer);
+var _TodoFilter2 = _interopRequireDefault(_TodoFilter);
+
+var _MessageArea = require('../components/MessageArea');
+
+var _MessageArea2 = _interopRequireDefault(_MessageArea);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,17 +64,16 @@ var App = (function (_React$Component) {
         value: function render() {
             // Injected by connect() call:
             var _props = this.props;
-            var dispatch = _props.dispatch;
             var visibleTodos = _props.visibleTodos;
             var visibilityFilter = _props.visibilityFilter;
+            var message = _props.message;
+            var addTodoWithValidate = _props.addTodoWithValidate;
+            var clearMessage = _props.clearMessage;
+            var showMessage = _props.showMessage;
+            var setVisibilityFilter = _props.setVisibilityFilter;
+            var completeTodo = _props.completeTodo;
 
-            return React.createElement("div", null, React.createElement(_AddTodo2.default, { "onAddClick": function onAddClick(text) {
-                    return dispatch(_TodoActions.TodoActionCreator.addTodo(text));
-                } }), React.createElement(_TodoList2.default, { "todos": visibleTodos, "onTodoClick": function onTodoClick(index) {
-                    return dispatch(_TodoActions.TodoActionCreator.completeTodo(index));
-                } }), React.createElement(_Footer2.default, { "filter": visibilityFilter, "onFilterChange": function onFilterChange(nextFilter) {
-                    return dispatch(_TodoActions.TodoActionCreator.setVisibilityFilter(nextFilter));
-                } }));
+            return React.createElement("div", null, React.createElement(_MessageArea2.default, { "message": message }), React.createElement(_AddTodo2.default, { "onAddClick": addTodoWithValidate }), React.createElement("section", null, React.createElement(_TodoFilter2.default, { "filter": visibilityFilter, "onFilterChange": setVisibilityFilter }), React.createElement(_TodoList2.default, { "todos": visibleTodos, "onTodoClick": completeTodo })));
         }
     }]);
 
@@ -71,13 +82,13 @@ var App = (function (_React$Component) {
 
 function selectTodos(todos, filter) {
     switch (filter) {
-        case _TodoActions.VisibilityFilters.SHOW_ALL:
+        case _TodoModels.VisibilityFilters.SHOW_ALL:
             return todos;
-        case _TodoActions.VisibilityFilters.SHOW_COMPLETED:
+        case _TodoModels.VisibilityFilters.SHOW_COMPLETED:
             return todos.filter(function (todo) {
                 return todo.completed;
             });
-        case _TodoActions.VisibilityFilters.SHOW_ACTIVE:
+        case _TodoModels.VisibilityFilters.SHOW_ACTIVE:
             return todos.filter(function (todo) {
                 return !todo.completed;
             });
@@ -88,7 +99,11 @@ function selectTodos(todos, filter) {
 function select(state) {
     return {
         visibleTodos: selectTodos(state.todos, state.visibilityFilter),
-        visibilityFilter: state.visibilityFilter
+        visibilityFilter: state.visibilityFilter,
+        message: state.message
     };
 }
-exports.default = ReactRedux.connect(select)(App);
+function mapDispatchToProps(dispatch) {
+    return Redux.bindActionCreators(TodoActionCreator, dispatch);
+}
+exports.default = ReactRedux.connect(select, mapDispatchToProps)(App);

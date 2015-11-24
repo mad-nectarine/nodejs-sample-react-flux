@@ -69,7 +69,7 @@ gulp.task("tsc-compile", function () {
     var tsProject = typescript.createProject('tsconfig.json');
     var tsResult = tsProject.src() // instead of gulp.src(...) 
         .pipe(typescript(tsProject));
-    tsResult.js.pipe(gulp.dest('./'));
+    return tsResult.js.pipe(gulp.dest('./'));
 });
 
 gulp.task("browserify", function () {
@@ -83,7 +83,7 @@ gulp.task("browserify", function () {
             entries: ['./public/scripts/pages/' + item + '.js'],
             transform: [reactify] })
         .bundle()
-        .pipe(source('./public/scripts/pages/' + item + '.min.js'))
+        .pipe(source('./public/scripts/pages/built/' + item + '.min.js'))
         .pipe(buffer())
         .pipe(uglify())
         .pipe(gulp.dest('./'));
@@ -93,7 +93,7 @@ gulp.task("browserify", function () {
             entries: ['./public/scripts/pages/' + item + '.js'],
             transform: [reactify] })
         .bundle()
-        .pipe(source('./public/scripts/pages/' + item + '.debug.js'))
+        .pipe(source('./public/scripts/pages/built/' + item + '.debug.js'))
         .pipe(buffer())
         .pipe(gulp.dest('./'));
     });
@@ -233,11 +233,3 @@ gulp.task("script", function (callback) {
         callback
         );
 });
-
-
-
-//when you update file for execute, gulp execute specific task.
-//gulp.watch("./gulpexecute/make-lib",["make-lib"]);
-
-//default task
-gulp.task("default", ["make-lib"]);

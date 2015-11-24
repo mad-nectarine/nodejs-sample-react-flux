@@ -38,9 +38,9 @@ var TodoList = (function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            return React.createElement("ul", null, this.props.todos.map(function (todo, index) {
-                return React.createElement(_Todo2.default, React.__spread({}, todo, { "key": index.toString(), "onClick": function onClick() {
-                        return _this2.props.onTodoClick(index);
+            return React.createElement("ul", { "className": "list" }, this.props.todos.map(function (todo, index) {
+                return React.createElement(_Todo2.default, React.__spread({}, todo, { "key": todo.key, "onClick": function onClick() {
+                        return _this2.props.onTodoClick(todo.key);
                     } }));
             }));
         }

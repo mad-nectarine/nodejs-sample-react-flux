@@ -10,7 +10,7 @@ var _react = require('react');
 
 var React = _interopRequireWildcard(_react);
 
-var _TodoActions = require('../actions/TodoActions');
+var _ToDoModels = require('../models/ToDoModels');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -35,17 +35,17 @@ var Footer = (function (_React$Component) {
             var _this2 = this;
 
             if (filter === this.props.filter) {
-                return name;
+                return React.createElement("input", { "type": "button", "value": name, "disabled": true, "className": "selected" });
             }
-            return React.createElement("a", { "href": '#', "onClick": function onClick(e) {
+            return React.createElement("input", { "type": "button", "value": name, "disabled": false, "onClick": function onClick(e) {
                     e.preventDefault();
                     _this2.props.onFilterChange(filter);
-                } }, name);
+                } });
         }
     }, {
         key: 'render',
         value: function render() {
-            return React.createElement("p", null, "Show:", ' ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_ALL, 'All'), ', ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_COMPLETED, 'Completed'), ', ', this.renderFilter(_TodoActions.VisibilityFilters.SHOW_ACTIVE, 'Active'), ".");
+            return React.createElement("p", { "className": "list-operation-area" }, "Filter:", this.renderFilter(_ToDoModels.VisibilityFilters.SHOW_ALL, 'All'), this.renderFilter(_ToDoModels.VisibilityFilters.SHOW_COMPLETED, 'Completed'), this.renderFilter(_ToDoModels.VisibilityFilters.SHOW_ACTIVE, 'Active'));
         }
     }]);
 

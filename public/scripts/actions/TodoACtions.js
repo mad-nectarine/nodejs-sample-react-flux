@@ -1,57 +1,74 @@
 "use strict";
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+exports.addTodo = addTodo;
+exports.addTodoWithValidate = addTodoWithValidate;
+exports.showMessage = showMessage;
+exports.clearMessage = clearMessage;
+exports.completeTodo = completeTodo;
+exports.setVisibilityFilter = setVisibilityFilter;
 /*
  * action types
  */
 var TodoActionTypes = exports.TodoActionTypes = {
     ADD: "TODO.INCREMENT",
     COMPLETE: "TODO.DECREMENT",
-    SET_VISIBILITY_FILTER: "TODO.SET_VISIBILITY_FILTER "
+    SET_VISIBILITY_FILTER: "TODO.SET_VISIBILITY_FILTER ",
+    SHOW_MESSAGE: "TODO.SHOW_MESSAGE",
+    CLEAR_MESSAGE: "TODO.CLEAR_MESSAGE"
 };
 /*
- * other constants
- */
-var VisibilityFilters = exports.VisibilityFilters = undefined;
-(function (VisibilityFilters) {
-    VisibilityFilters[VisibilityFilters["SHOW_ALL"] = 0] = "SHOW_ALL";
-    VisibilityFilters[VisibilityFilters["SHOW_COMPLETED"] = 1] = "SHOW_COMPLETED";
-    VisibilityFilters[VisibilityFilters["SHOW_ACTIVE"] = 2] = "SHOW_ACTIVE";
-})(VisibilityFilters || (exports.VisibilityFilters = VisibilityFilters = {}));
+* action creators
+*/
+function addTodo(inputText) {
+    return { type: TodoActionTypes.ADD, inputText: inputText };
+}
 ;
+function addTodoWithValidate(inputText) {
+    return function (dispatch, getState) {
+        var _getState = getState();
 
-var TodoActionCreator = exports.TodoActionCreator = (function () {
-    function TodoActionCreator() {
-        _classCallCheck(this, TodoActionCreator);
-    }
+        var todos = _getState.todos;
+        //validate
 
-    _createClass(TodoActionCreator, null, [{
-        key: "addTodo",
-
-        /*
-        * action creators
-        */
-        value: function addTodo(text) {
-            return { type: TodoActionTypes.ADD, text: text };
+        var err = "";
+        if (inputText == null || inputText == "") {
+            err = "please input todo.";
+        } else if (todos.find(function (x) {
+            return x.text == inputText;
+        }) != null) {
+            err = "already registerd.";
         }
-    }, {
-        key: "completeTodo",
-        value: function completeTodo(index) {
-            return { type: TodoActionTypes.COMPLETE, index: index };
+        //Show Error or Add Todo
+        if (err) {
+            //Error
+            dispatch(showMessage({
+                text: err,
+                type: "error"
+            }));
+        } else {
+            //Add
+            dispatch(addTodo(inputText));
+            dispatch(clearMessage());
         }
-    }, {
-        key: "setVisibilityFilter",
-        value: function setVisibilityFilter(filter) {
-            return { type: TodoActionTypes.SET_VISIBILITY_FILTER, filter: filter };
-        }
-    }]);
-
-    return TodoActionCreator;
-})();
+    };
+}
+;
+function showMessage(message) {
+    return { type: TodoActionTypes.SHOW_MESSAGE, message: message };
+}
+;
+function clearMessage() {
+    return { type: TodoActionTypes.CLEAR_MESSAGE };
+}
+;
+function completeTodo(key) {
+    return { type: TodoActionTypes.COMPLETE, key: key };
+}
+;
+function setVisibilityFilter(filter) {
+    return { type: TodoActionTypes.SET_VISIBILITY_FILTER, filter: filter };
+}
+;
